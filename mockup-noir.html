@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dialecto — Mockup 1: Noir</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --negro: #000000;
+    --blanco: #ffffff;
+    --celeste: #00cfff;
+    --crema: #fffce6;
+    --gris: #111111;
+    --gris-medio: #1a1a1a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--negro);
+    color: var(--blanco);
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  /* ---------- GRAIN OVERLAY ---------- */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 60px;
+    mix-blend-mode: normal;
+  }
+
+  .nav-logo {
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 0.25em;
+    color: var(--blanco);
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--celeste); }
+
+  .nav-cta {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--negro);
+    background: var(--celeste);
+    padding: 10px 24px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 60px 80px;
+    position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--celeste);
+    margin-bottom: 32px;
+  }
+
+  .hero-headline {
+    font-size: clamp(48px, 6.5vw, 88px);
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    max-width: 900px;
+    margin-bottom: 48px;
+  }
+
+  .hero-headline span {
+    display: block;
+    color: var(--celeste);
+  }
+
+  .hero-sub {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .hero-tagline {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.55);
+    max-width: 420px;
+  }
+
+  .hero-scroll {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .scroll-line {
+    width: 60px;
+    height: 1px;
+    background: rgba(255,255,255,0.2);
+  }
+
+  /* Ticker strip */
+  .ticker {
+    background: var(--celeste);
+    overflow: hidden;
+    padding: 14px 0;
+    white-space: nowrap;
+  }
+
+  .ticker-inner {
+    display: inline-flex;
+    gap: 0;
+    animation: ticker-move 18s linear infinite;
+  }
+
+  .ticker-item {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--negro);
+    padding: 0 40px;
+  }
+
+  .ticker-sep {
+    color: var(--negro);
+    opacity: 0.4;
+    padding: 0 4px;
+  }
+
+  @keyframes ticker-move {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ---------- MANIFIESTO ---------- */
+  .manifiesto {
+    padding: 120px 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    padding-top: 8px;
+  }
+
+  .manifiesto-text {
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .manifiesto-text em {
+    font-style: normal;
+    color: var(--celeste);
+  }
+
+  /* ---------- STATS ---------- */
+  .stats {
+    padding: 100px 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: var(--gris-medio);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .stat-item {
+    padding: 60px 40px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .stat-num {
+    font-size: clamp(48px, 5vw, 72px);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--celeste);
+    margin-bottom: 12px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.05em;
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+
+  /* ---------- SERVICIOS ---------- */
+  .servicios {
+    padding: 120px 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .servicios-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 80px;
+  }
+
+  .servicios-title {
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .servicio-card {
+    padding: 60px 40px;
+    border: 1px solid rgba(255,255,255,0.08);
+    position: relative;
+    transition: background 0.25s;
+  }
+
+  .servicio-card:hover {
+    background: rgba(0, 207, 255, 0.04);
+  }
+
+  .servicio-num {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    color: var(--celeste);
+    margin-bottom: 40px;
+    display: block;
+  }
+
+  .servicio-nombre {
+    font-size: 22px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  .servicio-desc {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.75;
+  }
+
+  .servicio-arrow {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    font-size: 24px;
+    color: rgba(255,255,255,0.15);
+    transition: color 0.2s, transform 0.2s;
+  }
+
+  .servicio-card:hover .servicio-arrow {
+    color: var(--celeste);
+    transform: translate(4px, -4px);
+  }
+
+  /* ---------- CASO ---------- */
+  .caso {
+    padding: 120px 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: var(--crema);
+    color: var(--negro);
+  }
+
+  .caso-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.4);
+    margin-bottom: 32px;
+  }
+
+  .caso-title {
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    max-width: 700px;
+    margin-bottom: 48px;
+    text-transform: uppercase;
+  }
+
+  .caso-stats {
+    display: flex;
+    gap: 60px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+
+  .caso-stat strong {
+    display: block;
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: var(--negro);
+    line-height: 1;
+  }
+
+  .caso-stat span {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.45);
+    margin-top: 6px;
+    display: block;
+  }
+
+  /* ---------- CONTACTO ---------- */
+  .contacto {
+    padding: 160px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 48px;
+  }
+
+  .contacto-kicker {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .contacto-headline {
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    text-transform: uppercase;
+    max-width: 800px;
+  }
+
+  .contacto-headline span { color: var(--celeste); }
+
+  .contacto-email {
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    padding-bottom: 4px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .contacto-email:hover {
+    color: var(--celeste);
+    border-color: var(--celeste);
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--celeste);
+    color: var(--negro);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 18px 48px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .btn-primary:hover { opacity: 0.85; }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 40px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-logo {
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+  }
+
+  .footer-copy {
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.08em;
+  }
+
+  /* ---------- LOGOS CLIENTES ---------- */
+  .clientes {
+    padding: 80px 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: var(--gris-medio);
+  }
+
+  .clientes-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .logos-track-wrapper {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .logos-track-wrapper::before,
+  .logos-track-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 80px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .logos-track-wrapper::before {
+    left: 0;
+    background: linear-gradient(to right, var(--gris-medio), transparent);
+  }
+
+  .logos-track-wrapper::after {
+    right: 0;
+    background: linear-gradient(to left, var(--gris-medio), transparent);
+  }
+
+  .logos-track {
+    display: flex;
+    gap: 0;
+    animation: logos-scroll 30s linear infinite;
+    width: max-content;
+  }
+
+  .logos-track:hover { animation-play-state: paused; }
+
+  .logo-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 56px;
+    border-right: 1px solid rgba(255,255,255,0.07);
+    opacity: 0.45;
+    transition: opacity 0.2s;
+    height: 72px;
+    flex-shrink: 0;
+  }
+
+  .logo-item:hover { opacity: 0.9; }
+
+  .logo-item img {
+    height: 36px;
+    width: auto;
+    max-width: 140px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+  }
+
+  @keyframes logos-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ---------- WHATSAPP ---------- */
+  .whatsapp-btn {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 9997;
+    background: #25d366;
+    color: #fff;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .whatsapp-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 28px rgba(37, 211, 102, 0.55);
+  }
+
+  .whatsapp-btn svg {
+    width: 28px;
+    height: 28px;
+    fill: #fff;
+  }
+
+  /* Label de mockup */
+  .mockup-badge {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--celeste);
+    color: var(--negro);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    z-index: 9998;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Dialecto</a>
+  <ul class="nav-links">
+    <li><a href="#">Servicios</a></li>
+    <li><a href="#">Casos</a></li>
+    <li><a href="#">Nosotros</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Trabajemos →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Agencia de comunicaciones — Santiago, Chile</p>
+  <h1 class="hero-headline">
+    Conectando<br>
+    marcas<br>
+    <span>y audiencias.</span>
+  </h1>
+  <div class="hero-sub">
+    <p class="hero-tagline">Somos una agencia boutique de comunicaciones que construye reputación a través de estrategias personalizadas.</p>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      Scroll
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner">
+    <span class="ticker-item">Relaciones Públicas</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Branded Content</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Employee Advocacy</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Posicionamiento en Medios</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Estrategia Comunicacional</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Relaciones Públicas</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Branded Content</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Employee Advocacy</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Posicionamiento en Medios</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Estrategia Comunicacional</span><span class="ticker-sep">·</span>
+  </div>
+</div>
+
+<!-- MANIFIESTO -->
+<section class="manifiesto">
+  <p class="section-label">Quiénes somos</p>
+  <p class="manifiesto-text">
+    No creemos en la rigidez corporativa. Nos mueve la <em>atención dedicada,</em> la constante evolución y la solidez de la experiencia.<br><br>
+    Cada audiencia tiene su propio dialecto. <em>Nosotros los hablamos todos.</em>
+  </p>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-num">350+</div>
+      <div class="stat-label">Publicaciones<br>en medios</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">300+</div>
+      <div class="stat-label">Apariciones<br>en Tier 1</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">347M</div>
+      <div class="stat-label">Alcance potencial<br>acumulado</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="servicios">
+  <div class="servicios-header">
+    <h2 class="servicios-title">Nuestros<br>Servicios</h2>
+    <p class="section-label">Lo que hacemos</p>
+  </div>
+  <div class="servicios-grid">
+    <div class="servicio-card">
+      <span class="servicio-num">01</span>
+      <h3 class="servicio-nombre">Relaciones Públicas y Prensa</h3>
+      <p class="servicio-desc">Gestionamos vínculos directos con periodistas y medios. Elaboramos mensajes clave y coordinamos entrevistas y apariciones estratégicas.</p>
+      <span class="servicio-arrow">↗</span>
+    </div>
+    <div class="servicio-card">
+      <span class="servicio-num">02</span>
+      <h3 class="servicio-nombre">Branded Content</h3>
+      <p class="servicio-desc">Creamos contenidos editoriales que integran la narrativa de marca en medios y plataformas con alto valor comunicacional.</p>
+      <span class="servicio-arrow">↗</span>
+    </div>
+    <div class="servicio-card">
+      <span class="servicio-num">03</span>
+      <h3 class="servicio-nombre">Employee Advocacy en LinkedIn</h3>
+      <p class="servicio-desc">Activamos la presencia digital de líderes y equipos, diseñando scripts y lineamientos que amplifican el alcance orgánico.</p>
+      <span class="servicio-arrow">↗</span>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTES -->
+<section class="clientes">
+  <p class="clientes-eyebrow">Han confiado en nuestro trabajo</p>
+  <div class="logos-track-wrapper">
+    <div class="logos-track" id="logoTrack">
+      <div class="logo-item"><img src="logos/comply.png" alt="Comply"></div>
+      <div class="logo-item"><img src="logos/flixbus.png" alt="FlixBus"></div>
+      <div class="logo-item"><img src="logos/nea.png" alt="Clínica NEA"></div>
+      <div class="logo-item"><img src="logos/pronaturae.png" alt="Pronaturae"></div>
+      <div class="logo-item"><img src="logos/sostenible.png" alt="Sostenible"></div>
+      <div class="logo-item"><img src="logos/visandgo.png" alt="Visandgo"></div>
+      <!-- Duplicate for seamless loop -->
+      <div class="logo-item"><img src="logos/comply.png" alt="Comply"></div>
+      <div class="logo-item"><img src="logos/flixbus.png" alt="FlixBus"></div>
+      <div class="logo-item"><img src="logos/nea.png" alt="Clínica NEA"></div>
+      <div class="logo-item"><img src="logos/pronaturae.png" alt="Pronaturae"></div>
+      <div class="logo-item"><img src="logos/sostenible.png" alt="Sostenible"></div>
+      <div class="logo-item"><img src="logos/visandgo.png" alt="Visandgo"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="contacto">
+  <p class="contacto-kicker">¿Listo para hablar?</p>
+  <h2 class="contacto-headline">Hablemos<br>en tu<br><span>dialecto.</span></h2>
+  <a href="mailto:alo@agenciadialecto.com" class="contacto-email">alo@agenciadialecto.com</a>
+  <a href="mailto:alo@agenciadialecto.com" class="btn-primary">Iniciar conversación →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">Dialecto</span>
+  <ul class="footer-links">
+    <li><a href="#">Instagram</a></li>
+    <li><a href="#">LinkedIn</a></li>
+  </ul>
+  <span class="footer-copy">© 2026 Dialecto. Santiago, Chile.</span>
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/56996307261" target="_blank" class="whatsapp-btn" aria-label="Contactar por WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+
+</body>
+</html>
