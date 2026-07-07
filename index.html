@@ -4,7 +4,38 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dialecto — Mockup 1: Noir</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'FranklinGothic';
+    src: url('fonts/FranklinGothic-Book.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'FranklinGothic';
+    src: url('fonts/FranklinGothic-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'FranklinGothic';
+    src: url('fonts/FranklinGothic-Demi.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'FranklinGothic';
+    src: url('fonts/FranklinGothic-Heavy.otf') format('opentype');
+    font-weight: 800;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Montserrat';
+    src: url('fonts/Montserrat.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+  }
+</style>
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -20,11 +51,21 @@
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'FranklinGothic', 'Arial Narrow', sans-serif;
     background: var(--negro);
     color: var(--blanco);
     line-height: 1.5;
     overflow-x: hidden;
+  }
+
+  /* Montserrat para titulares de display */
+  .hero-headline,
+  .servicios-title,
+  .contacto-headline,
+  .manifiesto-text,
+  .nav-logo-text,
+  .ticker-item {
+    font-family: 'Montserrat', sans-serif;
   }
 
   /* ---------- GRAIN OVERLAY ---------- */
@@ -52,12 +93,14 @@
   }
 
   .nav-logo {
-    font-size: 18px;
-    font-weight: 900;
-    letter-spacing: 0.25em;
-    color: var(--blanco);
-    text-transform: uppercase;
+    display: flex;
+    align-items: center;
     text-decoration: none;
+  }
+
+  .nav-logo img {
+    height: 30px;
+    width: auto;
   }
 
   .nav-links {
@@ -615,7 +658,9 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">Dialecto</a>
+  <a href="#" class="nav-logo">
+    <img src="logo/dialecto-blanco-horizontal.png" alt="Dialecto">
+  </a>
   <ul class="nav-links">
     <li><a href="#">Servicios</a></li>
     <li><a href="#">Casos</a></li>
@@ -744,7 +789,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <span class="footer-logo">Dialecto</span>
+  <img src="logo/dialecto-blanco-horizontal.png" alt="Dialecto" style="height:22px; width:auto; opacity:0.7;">
   <ul class="footer-links">
     <li><a href="#">Instagram</a></li>
     <li><a href="#">LinkedIn</a></li>
