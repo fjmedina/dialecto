@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dialecto — Mockup 1: Noir</title>
+<title>Dialecto — Agencia</title>
 <style>
   @font-face {
     font-family: 'FranklinGothic';
@@ -49,6 +49,8 @@
   }
 
   html { scroll-behavior: smooth; }
+
+  section[id] { scroll-margin-top: 110px; }
 
   body {
     font-family: 'FranklinGothic', 'Arial Narrow', sans-serif;
@@ -99,7 +101,7 @@
   }
 
   .nav-logo img {
-    height: 30px;
+    height: 46px;
     width: auto;
   }
 
@@ -143,7 +145,41 @@
     justify-content: flex-end;
     padding: 0 60px 80px;
     position: relative;
+    overflow: hidden;
     border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* Foto de fondo, en blanco y negro */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('Fotos%203/pexels-kevin-malik-9017746.jpg');
+    background-size: cover;
+    background-position: center 65%;
+    filter: grayscale(1) contrast(1.05) brightness(0.8);
+    z-index: 0;
+  }
+
+  /* Overlay oscuro para que el texto se lea bien (la foto es clara, necesita más oscurecer) */
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.4) 45%, rgba(0,0,0,0.8) 100%);
+    z-index: 1;
+  }
+
+  .hero-eyebrow,
+  .hero-headline,
+  .hero-cta-wrap,
+  .hero-sub {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-cta-wrap {
+    margin-bottom: 48px;
   }
 
   .hero-eyebrow {
@@ -662,11 +698,11 @@
     <img src="logo/dialecto-blanco-horizontal.png" alt="Dialecto">
   </a>
   <ul class="nav-links">
-    <li><a href="#">Servicios</a></li>
-    <li><a href="#">Casos</a></li>
-    <li><a href="#">Nosotros</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#casos">Casos</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
   </ul>
-  <a href="#" class="nav-cta">Trabajemos →</a>
+  <a href="#contacto" class="nav-cta">Trabajemos →</a>
 </nav>
 
 <!-- HERO -->
@@ -677,6 +713,9 @@
     marcas<br>
     <span>y audiencias.</span>
   </h1>
+  <div class="hero-cta-wrap">
+    <a href="#servicios" class="btn-primary">Conoce nuestro trabajo →</a>
+  </div>
   <div class="hero-sub">
     <p class="hero-tagline">Somos una agencia boutique de comunicaciones que construye reputación a través de estrategias personalizadas.</p>
     <div class="hero-scroll">
@@ -703,7 +742,7 @@
 </div>
 
 <!-- MANIFIESTO -->
-<section class="manifiesto">
+<section class="manifiesto" id="nosotros">
   <p class="section-label">Quiénes somos</p>
   <p class="manifiesto-text">
     No creemos en la rigidez corporativa. Nos mueve la <em>atención dedicada,</em> la constante evolución y la solidez de la experiencia.<br><br>
@@ -730,7 +769,7 @@
 </section>
 
 <!-- SERVICIOS -->
-<section class="servicios">
+<section class="servicios" id="servicios">
   <div class="servicios-header">
     <h2 class="servicios-title">Nuestros<br>Servicios</h2>
     <p class="section-label">Lo que hacemos</p>
@@ -779,8 +818,32 @@
   </div>
 </section>
 
+<!-- CASO DE ÉXITO -->
+<section class="caso" id="casos">
+  <p class="caso-eyebrow">Caso de éxito — Clínica NEA</p>
+  <h2 class="caso-title">El primer chileno en ganar el Globo de Oro de la Microcirugía.</h2>
+  <div class="caso-stats">
+    <div class="caso-stat">
+      <strong>21M</strong>
+      <span>Impresiones potenciales</span>
+    </div>
+    <div class="caso-stat">
+      <strong>17+</strong>
+      <span>Medios únicos</span>
+    </div>
+    <div class="caso-stat">
+      <strong>92%</strong>
+      <span>Menciones Tier 1</span>
+    </div>
+    <div class="caso-stat">
+      <strong>$61M</strong>
+      <span>Retorno estimado</span>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACTO -->
-<section class="contacto">
+<section class="contacto" id="contacto">
   <p class="contacto-kicker">¿Listo para hablar?</p>
   <h2 class="contacto-headline">Hablemos<br>en tu<br><span>dialecto.</span></h2>
   <a href="mailto:alo@agenciadialecto.com" class="contacto-email">alo@agenciadialecto.com</a>
